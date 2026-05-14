@@ -9,8 +9,8 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
 		features = {"src/spec/features"},
 		plugin = {"pretty",
-				"html:target/cucumber-report.html",
-				"json:target/cucumber-report.json",
+				"html:target/cucumber-reports/cucumber.html",
+				"json:target/cucumber-reports/cucumber.json",
 				"io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"},
 		tags = ("@ajoutConfig"),
 		monochrome = true,
