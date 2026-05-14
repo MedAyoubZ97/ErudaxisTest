@@ -8,7 +8,10 @@ import io.cucumber.junit.CucumberOptions;
 @RunWith(Cucumber.class)
 @CucumberOptions(
 		features = {"src/spec/features"},
-		plugin = {"pretty","html:target/cucumber-report.html","json:target/cucumber-report.json"},
+		plugin = {"pretty",
+				"html:target/cucumber-report.html",
+				"json:target/cucumber-report.json",
+				"io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"},
 		tags = ("@ajoutConfig"),
 		monochrome = true,
 		snippets = CAMELCASE
