@@ -8,7 +8,7 @@ Feature: ajouter une configuration
 	And acceder au module configuration
 	And acceder a la formulaire d ajout de configuration 
 	
-  @ajoutConfigCasValide
+  @ajoutConfig
   Scenario Outline: ajouter une configuration avec cas valide
     When saisir nom de configuration <nom>
     And saisir duree de seance <duree>
@@ -28,5 +28,8 @@ Feature: ajouter une configuration
       | "test" |  "60" | "08:00" | "12:00" | "12:00" | "17:00" | "12:00" | "13:00" | "10:00" | "10:05" | "Success!" |
       | "    " |  "60" | "08:00" | "12:00" | "12:00" | "17:00" | "12:00" | "13:00" | "10:00" | "10:05" | "Erreur!"  |
       | "/@#+-"|  "60" | "08:00" | "12:00" | "12:00" | "17:00" | "12:00" | "13:00" | "10:00" | "10:05" | "Erreur!"  |
+      | "test2"|  "60" | "08:00" | "08:15" | "08:15" | "08:25" | "08:05" | "08:10" | "10:00" | "10:05" | "Erreur!"  |
+      | " "|  " " | " " | " " | " " | " " | " " | " " | " " | " " | "Erreur!"  |
+      | "test" |  "60" | "08:00" | "12:00" | "12:00" | "17:00" | "12:00" | "13:00" | "10:00" | "10:05" | "Erreur!"  |
       | "test" |  "29" | "08:00" | "12:00" | "12:00" | "17:00" | "12:00" | "13:00" | "10:00" | "10:05" | "Erreur!"  |
       | "test" | "541" | "08:00" | "12:00" | "12:00" | "17:00" | "12:00" | "13:00" | "10:00" | "10:05" | "Erreur!"  |
