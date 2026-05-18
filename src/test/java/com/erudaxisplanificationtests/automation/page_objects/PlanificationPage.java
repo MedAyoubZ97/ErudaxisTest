@@ -3,19 +3,22 @@ package com.erudaxisplanificationtests.automation.page_objects;
 import java.time.Duration;
 
 import org.junit.Assert;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.erudaxisplanificationtests.automation.utils.Setup;
 import com.erudaxisplanificationtests.automation.utils.ConfigFileReader;
+import com.erudaxisplanificationtests.automation.utils.Setup;
 
 public class PlanificationPage {
-	private ConfigFileReader configFileReader;
+	ConfigFileReader configFileReader;
 	WebDriverWait wait = new WebDriverWait(Setup.getDriver(), Duration.ofSeconds(20));
+	Actions action=new Actions(Setup.getDriver());
 	/* Find By */
 	@FindBy(how = How.ID, using = "sign-in-email-input")
 	public static WebElement emailField;
@@ -73,12 +76,15 @@ public class PlanificationPage {
 
 	@FindBy(how = How.ID, using = "swal2-title")
 	public static WebElement successConfigCreationMsg;
+	
+	@FindBy(how = How.XPATH,using="//button[normalize-space()='OK']")
+	public static WebElement confirmPopupBtn;
 
 	public PlanificationPage() {
-		PageFactory.initElements(Setup.getDriver(), this);
 		this.configFileReader = new ConfigFileReader();
+		PageFactory.initElements(Setup.getDriver(), this);
 	}
-
+	
 	public void goToUrl() {
 		Setup.getDriver().get(configFileReader.getProperties("erudaxis.url"));
 	}
@@ -97,12 +103,15 @@ public class PlanificationPage {
 
 	public void btnClick(WebElement btnToClick) {
 		wait.until(ExpectedConditions.visibilityOf(btnToClick));
+		action.scrollToElement(btnToClick).build().perform();
 		btnToClick.click();
 	}
 
 	public void fillField(WebElement field, String input) {
 		wait.until(ExpectedConditions.visibilityOf(field));
-		field.clear();
+		action.scrollToElement(field).build().perform();
+		field.sendKeys(Keys.CONTROL + "a");
+		field.sendKeys(Keys.BACK_SPACE);
 		field.sendKeys(input);
 	}
 

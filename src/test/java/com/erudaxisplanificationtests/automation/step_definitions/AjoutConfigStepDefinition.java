@@ -85,9 +85,9 @@ public class AjoutConfigStepDefinition {
 		planifPage.btnClick(PlanificationPage.addNewConfigBtn);
 	}
 	@Then("verifier l ajout de configuration")
-	public void verifierLAjoutDeConfiguration() {
-	    planifPage.verification(PlanificationPage.successConfigCreationMsg, "Succès");
-
+	public void verifierLAjoutDeConfiguration() throws InterruptedException {
+		planifPage.verification(PlanificationPage.successConfigCreationMsg, "Success!");
+		planifPage.btnClick(PlanificationPage.confirmPopupBtn);
 	}
 
 
