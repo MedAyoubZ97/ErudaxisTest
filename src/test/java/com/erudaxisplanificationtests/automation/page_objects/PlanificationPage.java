@@ -79,7 +79,22 @@ public class PlanificationPage {
 	
 	@FindBy(how = How.XPATH,using="//button[normalize-space()='OK']")
 	public static WebElement confirmPopupBtn;
+	
+	@FindBy(how =How.XPATH,using="//div[contains(text(),'Nom est obligatoire')]")
+	public static WebElement nameErrMsg;
+	
+	/*@FindBy(how =How.XPATH,using="//div[contains(text(),'Durée minimum est de 30 minutes')]")
+	public static WebElement dureeInfErrMsg;*/
+	@FindBy(how =How.XPATH,using="//div[contains(text(),'Durée')]")
+	public static WebElement dureeErrMsg;
+	
+	@FindBy(how =How.XPATH,using="//div[contains(text(),'Durée maximum est de 540 minute')]")
+	public static WebElement dureeSupErrMsg;
+	
+	@FindBy(how =How.XPATH,using="//div[contains(text(),'Durée est obligatoire')]")
+	public static WebElement dureeVideErrMsg;
 
+	
 	public PlanificationPage() {
 		this.configFileReader = new ConfigFileReader();
 		PageFactory.initElements(Setup.getDriver(), this);
@@ -117,7 +132,12 @@ public class PlanificationPage {
 
 	public void verification(WebElement text, String text2) {
 		wait.until(ExpectedConditions.visibilityOf(text));
+		action.scrollToElement(text).build().perform();
 		Assert.assertEquals(text.getText(), text2);
+	}
+	
+	public void verifExistance() {
+		wait.until(ExpectedConditions.visibilityOf(dureeErrMsg));
 	}
 
 }

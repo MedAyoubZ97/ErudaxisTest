@@ -89,6 +89,22 @@ public class AjoutConfigStepDefinition {
 		planifPage.btnClick(PlanificationPage.confirmPopupBtn);
 	}
 
+	@Then("verifier apparition d erreur case vide")
+	public void verifierApparitionDErreurCaseVide() {
+		planifPage.verification(PlanificationPage.nameErrMsg,"Nom est obligatoire");
+		planifPage.verification(PlanificationPage.dureeVideErrMsg,"Durée est obligatoire");
+	}
+
+	@Then("verifier apparition d erreur duree")
+	public void verifierApparitionDErreurDuree() {
+		planifPage.verifExistance();
+	}
+
+
+
+
+
+
 
 
 }
