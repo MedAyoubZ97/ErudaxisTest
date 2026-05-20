@@ -59,7 +59,7 @@ Feature: ajouter une configuration
     And saisire heure de debut pause dans le champ heure de debut pause <heureDebutPause>
     And saisire heure de fin pause dans le champ heure de fin pause <heureFinPause>
     Then click sur le bouton ajouter
-    And verifier apparition d erreur duree
+    And verifier apparition d erreur duree <msg>
     Examples: 
       | nom    | duree | heureDebutMatin  | heureFinMatin | heureDebutAprésMidi | heureFinAprésMidi | heureDebutDej | heureFinDej | heureDebutPause | heureFinPause | msg |
       | "test duree1" |  "29" | "08:00" | "12:00" | "12:00" | "17:00" | "12:00" | "13:00" | "10:00" | "10:05" | "Durée minimum est de 30 minutes"  |

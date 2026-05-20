@@ -136,8 +136,9 @@ public class PlanificationPage {
 		Assert.assertEquals(text.getText(), text2);
 	}
 	
-	public void verifExistance() {
+	public void verifExistance(String msg) {
 		wait.until(ExpectedConditions.visibilityOf(dureeErrMsg));
+		Assert.assertTrue(dureeErrMsg.getText().contains(msg));
 	}
 
 }

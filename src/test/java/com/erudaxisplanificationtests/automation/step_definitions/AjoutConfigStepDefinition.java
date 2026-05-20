@@ -95,9 +95,9 @@ public class AjoutConfigStepDefinition {
 		planifPage.verification(PlanificationPage.dureeVideErrMsg,"Durée est obligatoire");
 	}
 
-	@Then("verifier apparition d erreur duree")
-	public void verifierApparitionDErreurDuree() {
-		planifPage.verifExistance();
+	@Then("verifier apparition d erreur duree {string}")
+	public void verifierApparitionDErreurDuree(String msg) {
+		planifPage.verifExistance(msg);
 	}
 
 
