@@ -86,19 +86,42 @@ public class AjoutConfigStepDefinition {
 	@Then("verifier l ajout de configuration {string}")
 	public void verifierLAjoutDeConfiguration(String string){
 		planifPage.verification(PlanificationPage.successConfigCreationMsg, string);
-		planifPage.btnClick(PlanificationPage.confirmPopupBtn);
 	}
 
 	@Then("verifier apparition d erreur case vide")
 	public void verifierApparitionDErreurCaseVide() {
-		planifPage.verification(PlanificationPage.nameErrMsg,"Nom est obligatoire");
-		planifPage.verification(PlanificationPage.dureeVideErrMsg,"Durée est obligatoire");
+		planifPage.verifExistance(PlanificationPage.nameErrMsg,"Nom est obligatoire");
+		planifPage.verifExistance(PlanificationPage.dureeVideErrMsg,"Durée est obligatoire");
 	}
 
-	@Then("verifier apparition d erreur duree {string}")
-	public void verifierApparitionDErreurDuree(String msg) {
-		planifPage.verifExistance(msg);
+	@Then("verifier apparition d erreur {string}")
+	public void verifierApparitionDErreur(String msg) {
+		planifPage.verifExistance(PlanificationPage.dureeErrMsg,msg);
 	}
+	
+
+	@When("click sur le bouton ajouter pause")
+	public void clickSurLeBoutonAjouterPause() {
+		planifPage.btnClick(PlanificationPage.addPauseBtn);
+	}
+	@When("saisire heure de debut de deuxieme pause dans le champ heure de debut pause {string}")
+	public void saisireHeureDeDebutDeDeuxiemePauseDansLeChampHeureDeDebutPause(String string) {
+		planifPage.fillField(PlanificationPage.debutPause2, string);
+	}
+	@When("saisire heure de fin de deuxieme pause dans le champ heure de fin pause {string}")
+	public void saisireHeureDeFinDeDeuxiemePauseDansLeChampHeureDeFinPause(String string) {
+		planifPage.fillField(PlanificationPage.finPause2, string);
+	}
+
+	@Then("verifier que la configuration n est pas creer")
+	public void verifierQueLaConfigurationNEstPasCreer() {
+		planifPage.verifAddingConfigBlocked();
+	}
+
+
+
+
+
 
 
 

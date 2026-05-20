@@ -70,6 +70,12 @@ public class PlanificationPage {
 
 	@FindBy(how = How.XPATH, using = "//input[@name='pauses[0].end']")
 	public static WebElement finPause1;
+	
+	@FindBy(how = How.XPATH, using = "//input[@name='pauses[1].start']")
+	public static WebElement debutPause2;
+
+	@FindBy(how = How.XPATH, using = "//input[@name='pauses[1].end']")
+	public static WebElement finPause2;
 
 	@FindBy(how = How.ID, using = "btn-add")
 	public static WebElement addNewConfigBtn;
@@ -83,8 +89,6 @@ public class PlanificationPage {
 	@FindBy(how =How.XPATH,using="//div[contains(text(),'Nom est obligatoire')]")
 	public static WebElement nameErrMsg;
 	
-	/*@FindBy(how =How.XPATH,using="//div[contains(text(),'Durée minimum est de 30 minutes')]")
-	public static WebElement dureeInfErrMsg;*/
 	@FindBy(how =How.XPATH,using="//div[contains(text(),'Durée')]")
 	public static WebElement dureeErrMsg;
 	
@@ -93,6 +97,9 @@ public class PlanificationPage {
 	
 	@FindBy(how =How.XPATH,using="//div[contains(text(),'Durée est obligatoire')]")
 	public static WebElement dureeVideErrMsg;
+	
+	@FindBy(how =How.XPATH,using="//button[normalize-space()='+ajouter pause']")
+	public static WebElement addPauseBtn;
 
 	
 	public PlanificationPage() {
@@ -134,11 +141,19 @@ public class PlanificationPage {
 		wait.until(ExpectedConditions.visibilityOf(text));
 		action.scrollToElement(text).build().perform();
 		Assert.assertEquals(text.getText(), text2);
+		Assert.assertTrue(text.getText().contains(text2));
+		btnClick(confirmPopupBtn);
+
 	}
 	
-	public void verifExistance(String msg) {
-		wait.until(ExpectedConditions.visibilityOf(dureeErrMsg));
-		Assert.assertTrue(dureeErrMsg.getText().contains(msg));
+	public void verifExistance(WebElement element,String msg) {
+		wait.until(ExpectedConditions.visibilityOf(element));
+		action.scrollToElement(element).build().perform();
+		Assert.assertTrue(element.getText().contains(msg));
+	}
+	
+	public void verifAddingConfigBlocked () {
+		wait.until(ExpectedConditions.invisibilityOf(successConfigCreationMsg));
 	}
 
 }

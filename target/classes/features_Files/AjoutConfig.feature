@@ -59,8 +59,57 @@ Feature: ajouter une configuration
     And saisire heure de debut pause dans le champ heure de debut pause <heureDebutPause>
     And saisire heure de fin pause dans le champ heure de fin pause <heureFinPause>
     Then click sur le bouton ajouter
-    And verifier apparition d erreur duree <msg>
+    And verifier apparition d erreur <msg>
     Examples: 
       | nom    | duree | heureDebutMatin  | heureFinMatin | heureDebutAprésMidi | heureFinAprésMidi | heureDebutDej | heureFinDej | heureDebutPause | heureFinPause | msg |
       | "test duree1" |  "29" | "08:00" | "12:00" | "12:00" | "17:00" | "12:00" | "13:00" | "10:00" | "10:05" | "Durée minimum est de 30 minutes"  |
       | "test duree2" | "541" | "08:00" | "12:00" | "12:00" | "17:00" | "12:00" | "13:00" | "10:00" | "10:05" | "Durée maximum est de 540 minutes"  |
+      
+  @ajoutConfigAvecPause
+  Scenario Outline: ajouter une configuration avec pause
+    When saisir nom de configuration <nom>
+    And saisir duree de seance <duree>
+    And saisire heure de debut matin dans le champ heure de debut matin <heureDebutMatin>
+    And saisire heure de fin matin dans le champ heure de fin matin <heureFinMatin>
+    And saisire heure de debut apres midi dans le champ heure de debut apres midi <heureDebutAprésMidi>
+    And saisire heure de fin apres midi dans le champ heure de fin apres midi <heureFinAprésMidi>
+    And saisire heure de debut pause dejeuner dans le champ heure de debut pause dejeuner <heureDebutDej>
+    And saisire heure de fin pause dejeuner dans le champ heure de fin pause dejeuner <heureFinDej>
+    And saisire heure de debut pause dans le champ heure de debut pause <heureDebutPause>
+    And saisire heure de fin pause dans le champ heure de fin pause <heureFinPause>
+    And click sur le bouton ajouter pause
+    And saisire heure de debut de deuxieme pause dans le champ heure de debut pause <heureDebutDeuxiemePause>
+    And saisire heure de fin de deuxieme pause dans le champ heure de fin pause <heureFinDeuxiemePause>
+    Then click sur le bouton ajouter
+    And verifier l ajout de configuration <msg>
+    
+    Examples: 
+      | nom    | duree | heureDebutMatin  | heureFinMatin | heureDebutAprésMidi | heureFinAprésMidi | heureDebutDej | heureFinDej | heureDebutPause | heureFinPause |heureDebutDeuxiemePause|heureFinDeuxiemePause| msg |
+      | "testpause 1" |  "60" | "08:00" | "12:00" | "12:00" | "17:00" | "12:00" | "13:00" | "10:00" | "10:05" |"15:00" | "15:05"| "Success!" |
+      | "testpause 2" |  "60" | "08:00" | "12:00" | "12:00" | "17:00" | "12:00" | "13:00" | "10:00" | "10:05" |"10:00" | "10:05"| "Erreur!" |
+      | "testpause 3" |  "60" | "08:00" | "12:00" | "12:00" | "17:00" | "12:00" | "13:00" | "10:00" | "10:05" |"12:00" | "13:00"| "Erreur!" |
+      | "testpause 4" |  "60" | "08:00" | "12:00" | "12:00" | "17:00" | "12:00" | "13:00" | "10:00" | "10:05" |"12:05" | "12:30"| "Erreur!" |
+     
+       
+   @ajoutConfigAvecPauseInvalide
+   Scenario Outline: ajouter une configuration avec pause invalide
+    When saisir nom de configuration <nom>
+    And saisir duree de seance <duree>
+	And saisire heure de debut matin dans le champ heure de debut matin <heureDebutMatin>
+    And saisire heure de fin matin dans le champ heure de fin matin <heureFinMatin>
+    And saisire heure de debut apres midi dans le champ heure de debut apres midi <heureDebutAprésMidi>
+    And saisire heure de fin apres midi dans le champ heure de fin apres midi <heureFinAprésMidi>
+    And saisire heure de debut pause dejeuner dans le champ heure de debut pause dejeuner <heureDebutDej>
+    And saisire heure de fin pause dejeuner dans le champ heure de fin pause dejeuner <heureFinDej>
+    And saisire heure de debut pause dans le champ heure de debut pause <heureDebutPause>
+    And saisire heure de fin pause dans le champ heure de fin pause <heureFinPause>
+    And click sur le bouton ajouter pause
+    And saisire heure de debut de deuxieme pause dans le champ heure de debut pause <heureDebutDeuxiemePause>
+    And saisire heure de fin de deuxieme pause dans le champ heure de fin pause <heureFinDeuxiemePause>
+    Then click sur le bouton ajouter
+    And verifier que la configuration n est pas creer
+    
+    Examples:
+      | nom    | duree | heureDebutMatin  | heureFinMatin | heureDebutAprésMidi | heureFinAprésMidi | heureDebutDej | heureFinDej | heureDebutPause | heureFinPause |heureDebutDeuxiemePause|heureFinDeuxiemePause| 
+      | "testpause 5" |  "60" | "08:00" | "12:00" | "12:00" | "17:00" | "12:00" | "13:00" | "08:00" | "12:00" |"12:00" | "17:30"|
+      | "testpause 6" |  "60" | "09:00" | "12:00" | "12:00" | "17:00" | "12:00" | "13:00" | "08:00" | "12:00" |"12:00" | "18:00"|
